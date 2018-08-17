@@ -5,6 +5,8 @@
  */
 package poo.muni.ui;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Capacitacion5
@@ -36,17 +38,16 @@ public class AltaUsuario extends javax.swing.JFrame {
         jTextFieldnombrereg = new javax.swing.JTextField();
         jTextFieldApelliodoreg = new javax.swing.JTextField();
         jTextFieldUsuarioreg = new javax.swing.JTextField();
-        jTextFieldContraseñareg = new javax.swing.JTextField();
-        jTextFieldRepetirContrareg = new javax.swing.JTextField();
         jButtonGuardar = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jLabelemailreg = new javax.swing.JLabel();
         jTextFieldEmailreg = new javax.swing.JTextField();
+        txtContraseña = new javax.swing.JPasswordField();
+        txtXConfirmarContraseña = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(71, 141, 207), null), "Datos de Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(30, 30, 30))); // NOI18N
@@ -76,18 +77,15 @@ public class AltaUsuario extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldContraseñareg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldContraseñaregActionPerformed(evt);
-            }
-        });
-
-        jButtonGuardar.setBackground(new java.awt.Color(83, 137, 203));
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poo/muni/ui/boton guardar.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setToolTipText("Guardar Cambios");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
-        jButtonEditar.setBackground(new java.awt.Color(77, 138, 212));
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poo/muni/ui/calcelar-icono.png"))); // NOI18N
         jButtonEditar.setText("Cancelar");
 
@@ -116,9 +114,9 @@ public class AltaUsuario extends javax.swing.JFrame {
                             .addComponent(jTextFieldApelliodoreg)
                             .addComponent(jTextFieldnombrereg)
                             .addComponent(jTextFieldUsuarioreg)
-                            .addComponent(jTextFieldContraseñareg)
-                            .addComponent(jTextFieldRepetirContrareg)
-                            .addComponent(jTextFieldEmailreg, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                            .addComponent(jTextFieldEmailreg, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                            .addComponent(txtContraseña)
+                            .addComponent(txtXConfirmarContraseña))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonGuardar)
@@ -147,12 +145,12 @@ public class AltaUsuario extends javax.swing.JFrame {
                     .addComponent(jLabelemailreg))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldContraseñareg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelcontraseñareg))
+                    .addComponent(jLabelcontraseñareg)
+                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldRepetirContrareg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlabelRepetirContrareg))
+                    .addComponent(jlabelRepetirContrareg)
+                    .addComponent(txtXConfirmarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonGuardar)
@@ -205,9 +203,36 @@ public class AltaUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldUsuarioregActionPerformed
 
-    private void jTextFieldContraseñaregActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldContraseñaregActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldContraseñaregActionPerformed
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+      evt.getActionCommand();
+        String nombre = jTextFieldnombrereg.getText();
+        String apellido = jTextFieldApelliodoreg.getText();
+        String username = jTextFieldEmailreg.getText();
+        String email = jTextFieldEmailreg.getText();
+        String contraseña = txtContraseña.getText();
+        String confirmarContraseña = txtXConfirmarContraseña.getText();
+        
+        if(txtContraseña.getText().length()< 5 || txtXConfirmarContraseña.getText().length() < 5){
+        JOptionPane.showMessageDialog(null, "Las contraseñas deben tener al menos 5 caracteres","Error",JOptionPane.ERROR_MESSAGE);
+          return;
+        }
+         
+        
+        if(nombre.isEmpty()|| apellido.isEmpty()||username.isEmpty()||email.isEmpty()||contraseña.isEmpty()||confirmarContraseña.isEmpty()){
+            JOptionPane.showMessageDialog(null, "No deje campos vacios","Error", JOptionPane.ERROR_MESSAGE);
+            
+               
+        }
+        if (contraseña.equals(confirmarContraseña)){
+          JOptionPane.showMessageDialog(null, "Registro Completado con éxito");
+        
+        }else {
+                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden","Error",JOptionPane.ERROR_MESSAGE);
+        }
+       
+        
+       
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,11 +281,11 @@ public class AltaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelemailreg;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldApelliodoreg;
-    private javax.swing.JTextField jTextFieldContraseñareg;
     private javax.swing.JTextField jTextFieldEmailreg;
-    private javax.swing.JTextField jTextFieldRepetirContrareg;
     private javax.swing.JTextField jTextFieldUsuarioreg;
     private javax.swing.JTextField jTextFieldnombrereg;
     private javax.swing.JLabel jlabelRepetirContrareg;
+    private javax.swing.JPasswordField txtContraseña;
+    private javax.swing.JPasswordField txtXConfirmarContraseña;
     // End of variables declaration//GEN-END:variables
 }

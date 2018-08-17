@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package poo.muni;
+import poo.muni.ui.AltaUsuario;
 
 /**
  *
@@ -15,7 +16,10 @@ public class MuniAdministracion {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        AltaUsuario alta = new AltaUsuario();
+        alta.setVisible(true);
+        alta.setResizable(false);
+        
     }
     
 }
