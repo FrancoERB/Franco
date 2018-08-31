@@ -6,6 +6,9 @@
 package poo.muni.ui;
 
 import javax.swing.JOptionPane;
+import poo.muni.controller.gestorDeEmpleo;
+import poo.muni.dao.UsuarioDao;
+import poo.muni.Usuario;
 
 /**
  *
@@ -13,10 +16,14 @@ import javax.swing.JOptionPane;
  */
 public class AltaUsuario extends javax.swing.JFrame {
 
+    private final gestorDeEmpleo gestor;
+    private UsuarioDao user;
+
     /**
      * Creates new form AltaUsuario
      */
-    public AltaUsuario() {
+    public AltaUsuario(gestorDeEmpleo gestor) {
+        this.gestor = gestor;
         initComponents();
     }
 
@@ -42,8 +49,8 @@ public class AltaUsuario extends javax.swing.JFrame {
         jButtonEditar = new javax.swing.JButton();
         jLabelemailreg = new javax.swing.JLabel();
         jTextFieldEmailreg = new javax.swing.JTextField();
-        txtContraseña = new javax.swing.JPasswordField();
-        txtXConfirmarContraseña = new javax.swing.JPasswordField();
+        jTextFieldContraseña = new javax.swing.JTextField();
+        jTextFieldConfimarContraseña = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -88,6 +95,11 @@ public class AltaUsuario extends javax.swing.JFrame {
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poo/muni/ui/calcelar-icono.png"))); // NOI18N
         jButtonEditar.setText("Cancelar");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
         jLabelemailreg.setText("Email:");
 
@@ -115,8 +127,8 @@ public class AltaUsuario extends javax.swing.JFrame {
                             .addComponent(jTextFieldnombrereg)
                             .addComponent(jTextFieldUsuarioreg)
                             .addComponent(jTextFieldEmailreg, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                            .addComponent(txtContraseña)
-                            .addComponent(txtXConfirmarContraseña))
+                            .addComponent(jTextFieldContraseña)
+                            .addComponent(jTextFieldConfimarContraseña))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonGuardar)
@@ -146,11 +158,11 @@ public class AltaUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelcontraseñareg)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlabelRepetirContrareg)
-                    .addComponent(txtXConfirmarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldConfimarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonGuardar)
@@ -204,70 +216,100 @@ public class AltaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldUsuarioregActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-      evt.getActionCommand();
-        String nombre = jTextFieldnombrereg.getText();
-        String apellido = jTextFieldApelliodoreg.getText();
-        String username = jTextFieldEmailreg.getText();
-        String email = jTextFieldEmailreg.getText();
-        String contraseña = txtContraseña.getText();
-        String confirmarContraseña = txtXConfirmarContraseña.getText();
-        
-        if(txtContraseña.getText().length()< 5 || txtXConfirmarContraseña.getText().length() < 5){
-        JOptionPane.showMessageDialog(null, "Las contraseñas deben tener al menos 5 caracteres","Error",JOptionPane.ERROR_MESSAGE);
-          return;
+        evt.getActionCommand();
+        String nombre = jTextFieldnombrereg.getText().trim();
+        String apellido = jTextFieldApelliodoreg.getText().trim();
+        String username = jTextFieldUsuarioreg.getText().trim();
+        String email = jTextFieldEmailreg.getText().trim();
+        String contraseña = jTextFieldContraseña.getText().trim();
+        String confirmarContraseña = jTextFieldConfimarContraseña.getText().trim();
+
+        if (contraseña.length() <= 5) {
+            JOptionPane.showMessageDialog(null, "Las contraseñas deben tener al menos 5 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-         
-        
-        if(nombre.isEmpty()|| apellido.isEmpty()||username.isEmpty()||email.isEmpty()||contraseña.isEmpty()||confirmarContraseña.isEmpty()){
-            JOptionPane.showMessageDialog(null, "No deje campos vacios","Error", JOptionPane.ERROR_MESSAGE);
-            
-               
+
+        if (nombre.isEmpty() || apellido.isEmpty() || username.isEmpty() || email.isEmpty() || contraseña.length() < 1 || confirmarContraseña.length() < 1) {
+            JOptionPane.showMessageDialog(null, "No deje campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        if (contraseña.equals(confirmarContraseña)){
-          JOptionPane.showMessageDialog(null, "Registro Completado con éxito");
-        
-        }else {
-                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden","Error",JOptionPane.ERROR_MESSAGE);
+
+        if (!isValidEmailAddress(email)) {
+            JOptionPane.showMessageDialog(null, "El email no es valido", "Error", JOptionPane.ERROR_MESSAGE);
+             return;
         }
-       
+
+        if (!gestor.isUserexist(username)) {
+            JOptionPane.showMessageDialog(null, "El usuario ya existe", "Error", JOptionPane.ERROR);
+            return;
+        }
+
+        if (!String.valueOf(contraseña).equals(String.valueOf(confirmarContraseña))) {
+            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+
+        }
         
-       
+        if(username.contains(" ")){
+            JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener espacios", "Error",JOptionPane.ERROR_MESSAGE);
+            return;
+        
+        }
+        if (gestor.GuardarUsuario(username, contraseña, nombre, apellido, email)) {
+            JOptionPane.showMessageDialog(null, "Registro completado exitosamente", "Confirmado", JOptionPane.INFORMATION_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Hubo un problema en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AltaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AltaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AltaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AltaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AltaUsuario().setVisible(true);
-            }
-        });
+    public boolean isValidEmailAddress(String email) {
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
     }
+
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(AltaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(AltaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(AltaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(AltaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new AltaUsuario().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEditar;
@@ -281,11 +323,11 @@ public class AltaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelemailreg;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldApelliodoreg;
+    private javax.swing.JTextField jTextFieldConfimarContraseña;
+    private javax.swing.JTextField jTextFieldContraseña;
     private javax.swing.JTextField jTextFieldEmailreg;
     private javax.swing.JTextField jTextFieldUsuarioreg;
     private javax.swing.JTextField jTextFieldnombrereg;
     private javax.swing.JLabel jlabelRepetirContrareg;
-    private javax.swing.JPasswordField txtContraseña;
-    private javax.swing.JPasswordField txtXConfirmarContraseña;
     // End of variables declaration//GEN-END:variables
 }

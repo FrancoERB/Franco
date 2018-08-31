@@ -101,8 +101,8 @@
                               <Component id="jTextFieldnombrereg" alignment="0" max="32767" attributes="0"/>
                               <Component id="jTextFieldUsuarioreg" alignment="0" max="32767" attributes="0"/>
                               <Component id="jTextFieldEmailreg" pref="205" max="32767" attributes="0"/>
-                              <Component id="txtContraseña" max="32767" attributes="0"/>
-                              <Component id="txtXConfirmarContraseña" max="32767" attributes="0"/>
+                              <Component id="jTextFieldContraseña" max="32767" attributes="0"/>
+                              <Component id="jTextFieldConfimarContraseña" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -142,12 +142,12 @@
                   <EmptySpace pref="32" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelcontraseñareg" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlabelRepetirContrareg" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtXConfirmarContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldConfimarContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -219,6 +219,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEditarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelemailreg">
           <Properties>
@@ -227,9 +230,9 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldEmailreg">
         </Component>
-        <Component class="javax.swing.JPasswordField" name="txtContrase&#xf1;a">
+        <Component class="javax.swing.JTextField" name="jTextFieldContrase&#xf1;a">
         </Component>
-        <Component class="javax.swing.JPasswordField" name="txtXConfirmarContrase&#xf1;a">
+        <Component class="javax.swing.JTextField" name="jTextFieldConfimarContrase&#xf1;a">
         </Component>
       </SubComponents>
     </Container>

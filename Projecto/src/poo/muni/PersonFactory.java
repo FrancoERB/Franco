@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package poo.muni.dao;
+package poo.muni;
 
 /**
  *
- * @author oficina2
+ * @author Capacitacion5
  */
-public class clase {
+public class PersonFactory {
     
 }
