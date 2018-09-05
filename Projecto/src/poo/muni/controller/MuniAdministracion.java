@@ -14,6 +14,7 @@ import poo.muni.Usuario;
 import poo.muni.Persona;
 import poo.muni.ui.AltaUsuario;
 import poo.muni.controller.gestorDeEmpleo;
+import poo.muni.ui.LoginPanel;
 /**
  *
  * @author oficina2
@@ -25,10 +26,7 @@ public class MuniAdministracion {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-
-       
-        
+    public static void main(String[] args) {        
       
   
   

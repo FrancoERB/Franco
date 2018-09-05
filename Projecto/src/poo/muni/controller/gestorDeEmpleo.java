@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import org.hibernate.SessionFactory;
 import poo.muni.dao.UsuarioDao;
 import poo.muni.ui.AltaUsuario;
+import poo.muni.ui.LoginPanel;
 import poo.muni.Usuario;
 import sun.util.calendar.BaseCalendar.Date;
 
@@ -25,9 +26,10 @@ public class gestorDeEmpleo {
         // creamos las instancias de los objetos de acceso a datos
         this.usuarioDao = new UsuarioDao(sessionFactory, connection);
     }
+    
 
     public void run() {
-        new AltaUsuario(this).setVisible(true);
+      new LoginPanel(this).setVisible(true);
     }
 
     public boolean GuardarUsuario(String nombreUsuario, String contraseña, String nombre, String apellido, String email) {
@@ -39,6 +41,9 @@ public class gestorDeEmpleo {
     public boolean isUserexist(String nombreUsuario) {
         return usuarioDao.ValidarUsuario(nombreUsuario);
     }
+    
+    public boolean isPasswordexist(String nombreUsuario, String contraseña){
+        return usuarioDao.ValidarInicioDeSesion(nombreUsuario, contraseña);
+    }
 }
-//Usuario usuario=new Usuario(nombreUsuario,contraseña,nombre,apellido,email);
-//        usuarioDao.GuardarUsuario(usuario);
+

@@ -82,6 +82,29 @@ public class UsuarioDao {
         return true;
 
     }
+  
+  public boolean ValidarInicioDeSesion(String nombreUsuario, String contraseña ){
+    
+      try {
+           
+            Statement stmn = connection.createStatement();
+            ResultSet rs;
 
+            rs = stmn.executeQuery("SELECT nombreUsuarios, contraseña FROM Usuario WHERE nombreUsuarios = '" + nombreUsuario+"' and contraseña = '" + contraseña + "'");
+            while (rs.next()) {
+              String user = rs.getString("nombreUsuarios");
+               String password = rs.getString("contraseña");
+                if (user.equals(nombreUsuario) && (password.equals(contraseña))) {
+                  
+                    return true;
+                }
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Got an Exception! ");
+            System.err.println(e.getMessage());
+        }
+        return false;
+  }
     
 }
