@@ -17,13 +17,17 @@ import poo.muni.controller.gestorDeEmpleo;
  */
 public class LoginPanel extends javax.swing.JFrame {
      gestorDeEmpleo gestor;
+      
     /**
      * Creates new form LoginPanel
      */
     public LoginPanel(gestorDeEmpleo gestor1){
         initComponents();
         this.gestor = gestor1;
+        this.setLocationRelativeTo(null);
     }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,6 +51,7 @@ public class LoginPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setResizable(false);
 
         LoginPanl.setBackground(new java.awt.Color(255, 255, 255));
         LoginPanl.setForeground(new java.awt.Color(230, 230, 230));
@@ -204,7 +209,8 @@ public class LoginPanel extends javax.swing.JFrame {
        String userIniciar = FieldUsuario.getText();
        String contraseñainiciar = FieldContraseña.getText();
         if (gestor.isPasswordexist( userIniciar, contraseñainiciar)) {
-            new PantallaMenuPrincipal().setVisible(true);
+            new PantallaMenuPrincipal(gestor, userIniciar).setVisible(true);
+            
            
         }  else{
             JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrectos");
@@ -245,6 +251,7 @@ public class LoginPanel extends javax.swing.JFrame {
        //         new LoginPanel().setVisible(true);
             }
         });
+      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

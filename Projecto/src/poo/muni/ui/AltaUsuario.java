@@ -24,7 +24,59 @@ public class AltaUsuario extends javax.swing.JFrame {
      */
     public AltaUsuario(gestorDeEmpleo gestor) {
         this.gestor = gestor;
+        this.setLocationRelativeTo(null);
         initComponents();
+    }
+    
+    
+    private void ValidarGuardar()
+    {
+         String nombre = jTextFieldnombrereg.getText().trim();
+        String apellido = jTextFieldApelliodoreg.getText().trim();
+        String username = jTextFieldUsuarioreg.getText().trim();
+        String email = jTextFieldEmailreg.getText().trim();
+        String contraseña = jTextFieldContraseña.getText().trim();
+        String confirmarContraseña = jTextFieldConfimarContraseña.getText().trim();
+
+        if (contraseña.length() <= 5) {
+            JOptionPane.showMessageDialog(null, "Las contraseñas deben tener al menos 5 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (nombre.isEmpty() || apellido.isEmpty() || username.isEmpty() || email.isEmpty() || contraseña.length() < 1 || confirmarContraseña.length() < 1) {
+            JOptionPane.showMessageDialog(null, "No deje campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!isValidEmailAddress(email)) {
+            JOptionPane.showMessageDialog(null, "El email no es valido", "Error", JOptionPane.ERROR_MESSAGE);
+             return;
+        }
+
+        if (!gestor.isUserexist(username)) {
+            JOptionPane.showMessageDialog(null, "El usuario ya existe", "Error", JOptionPane.ERROR);
+            return;
+        }
+
+        if (!String.valueOf(contraseña).equals(String.valueOf(confirmarContraseña))) {
+            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+
+        }
+        
+        if(username.contains(" ")){
+            JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener espacios", "Error",JOptionPane.ERROR_MESSAGE);
+            return;
+        
+        }
+        if (gestor.GuardarUsuario(username, contraseña, nombre, apellido, email)) {
+            JOptionPane.showMessageDialog(null, "Registro completado exitosamente", "Confirmado", JOptionPane.INFORMATION_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Hubo un problema en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }
 
     /**
@@ -222,7 +274,7 @@ public class AltaUsuario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(139, 139, 139))
+                .addGap(144, 144, 144))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,53 +305,8 @@ public class AltaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldnombreregActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        evt.getActionCommand();
-        String nombre = jTextFieldnombrereg.getText().trim();
-        String apellido = jTextFieldApelliodoreg.getText().trim();
-        String username = jTextFieldUsuarioreg.getText().trim();
-        String email = jTextFieldEmailreg.getText().trim();
-        String contraseña = jTextFieldContraseña.getText().trim();
-        String confirmarContraseña = jTextFieldConfimarContraseña.getText().trim();
-
-        if (contraseña.length() <= 5) {
-            JOptionPane.showMessageDialog(null, "Las contraseñas deben tener al menos 5 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (nombre.isEmpty() || apellido.isEmpty() || username.isEmpty() || email.isEmpty() || contraseña.length() < 1 || confirmarContraseña.length() < 1) {
-            JOptionPane.showMessageDialog(null, "No deje campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (!isValidEmailAddress(email)) {
-            JOptionPane.showMessageDialog(null, "El email no es valido", "Error", JOptionPane.ERROR_MESSAGE);
-             return;
-        }
-
-        if (!gestor.isUserexist(username)) {
-            JOptionPane.showMessageDialog(null, "El usuario ya existe", "Error", JOptionPane.ERROR);
-            return;
-        }
-
-        if (!String.valueOf(contraseña).equals(String.valueOf(confirmarContraseña))) {
-            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-
-        }
         
-        if(username.contains(" ")){
-            JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener espacios", "Error",JOptionPane.ERROR_MESSAGE);
-            return;
-        
-        }
-        if (gestor.GuardarUsuario(username, contraseña, nombre, apellido, email)) {
-            JOptionPane.showMessageDialog(null, "Registro completado exitosamente", "Confirmado", JOptionPane.INFORMATION_MESSAGE);
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Hubo un problema en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-
+       ValidarGuardar();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed

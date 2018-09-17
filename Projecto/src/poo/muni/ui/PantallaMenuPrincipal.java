@@ -4,18 +4,26 @@
  * and open the template in the editor.
  */
 package poo.muni.ui;
+import java.awt.Color;
+import poo.muni.controller.gestorDeEmpleo;
+import poo.muni.ui.LoginPanel;
 
 /**
  *
  * @author Capacitacion5
  */
 public class PantallaMenuPrincipal extends javax.swing.JFrame {
-
+    gestorDeEmpleo gestor;
+    private String nombreUsuario;
     /**
      * Creates new form PantallaMenuPrincipal
      */
-    public PantallaMenuPrincipal() {
+    public PantallaMenuPrincipal(gestorDeEmpleo gestor, String nombreUsuario) {
         initComponents();
+        this.gestor = gestor;
+        this.nombreUsuario=nombreUsuario;
+        laberNombreUsuario.setText(nombreUsuario);
+         this.setLocationRelativeTo(null);
     }
 
     /**
@@ -31,7 +39,19 @@ public class PantallaMenuPrincipal extends javax.swing.JFrame {
         menuBar1 = new java.awt.MenuBar();
         menu1 = new java.awt.Menu();
         menu2 = new java.awt.Menu();
-        jPanel1 = new javax.swing.JPanel();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jFileChooser1 = new javax.swing.JFileChooser();
+        PanelPantallaPrincipal = new javax.swing.JPanel();
+        laberNombreUsuario = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        MenuPostulante = new javax.swing.JMenu();
+        MenuEmpresas = new javax.swing.JMenu();
+        MenuAgregarPostulante = new javax.swing.JMenu();
+        menuAddPostulante = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -42,35 +62,115 @@ public class PantallaMenuPrincipal extends javax.swing.JFrame {
         menuBar1.add(menu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        PanelPantallaPrincipal.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 816, Short.MAX_VALUE)
+        laberNombreUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        laberNombreUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poo/muni/ui/Imagenes/logued.png"))); // NOI18N
+        laberNombreUsuario.setText("User");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poo/muni/ui/logoofic.png"))); // NOI18N
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poo/muni/ui/Linea modelo 3.jpg"))); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel4.setText("Bienvenido !!");
+
+        javax.swing.GroupLayout PanelPantallaPrincipalLayout = new javax.swing.GroupLayout(PanelPantallaPrincipal);
+        PanelPantallaPrincipal.setLayout(PanelPantallaPrincipalLayout);
+        PanelPantallaPrincipalLayout.setHorizontalGroup(
+            PanelPantallaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPantallaPrincipalLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(94, 94, 94)
+                .addComponent(laberNombreUsuario)
+                .addGap(107, 107, 107))
+            .addGroup(PanelPantallaPrincipalLayout.createSequentialGroup()
+                .addGroup(PanelPantallaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelPantallaPrincipalLayout.createSequentialGroup()
+                        .addGap(273, 273, 273)
+                        .addComponent(jLabel2))
+                    .addComponent(jLabel3)
+                    .addGroup(PanelPantallaPrincipalLayout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 592, Short.MAX_VALUE)
+        PanelPantallaPrincipalLayout.setVerticalGroup(
+            PanelPantallaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPantallaPrincipalLayout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addGap(16, 16, 16)
+                .addGroup(PanelPantallaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PanelPantallaPrincipalLayout.createSequentialGroup()
+                        .addComponent(laberNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1))
+                    .addComponent(jLabel4))
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2)
+                .addGap(83, 83, 83)
+                .addComponent(jLabel1)
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 43, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        getContentPane().add(PanelPantallaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 610));
+
+        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuBar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        MenuPostulante.setBackground(new java.awt.Color(255, 255, 255));
+        MenuPostulante.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        MenuPostulante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poo/muni/ui/Imagenes/menu-alt-512.png"))); // NOI18N
+        MenuPostulante.setText("Menú");
+
+        MenuEmpresas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poo/muni/ui/Imagenes/icon_empresa_526077.png"))); // NOI18N
+        MenuEmpresas.setText("Empresas");
+        MenuPostulante.add(MenuEmpresas);
+
+        MenuAgregarPostulante.setBackground(new java.awt.Color(255, 255, 255));
+        MenuAgregarPostulante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poo/muni/ui/Imagenes/postulantes icon.png"))); // NOI18N
+        MenuAgregarPostulante.setText("Postulantes");
+        MenuAgregarPostulante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuAgregarPostulanteActionPerformed(evt);
+            }
+        });
+
+        menuAddPostulante.setBackground(new java.awt.Color(255, 255, 255));
+        menuAddPostulante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poo/muni/ui/Imagenes/agregarposicon.png"))); // NOI18N
+        menuAddPostulante.setText("Agregar Postulante");
+        menuAddPostulante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddPostulanteActionPerformed(evt);
+            }
+        });
+        MenuAgregarPostulante.add(menuAddPostulante);
+
+        MenuPostulante.add(MenuAgregarPostulante);
+
+        jMenuBar1.add(MenuPostulante);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menuAddPostulanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddPostulanteActionPerformed
+     new PantallaPostulante(gestor, nombreUsuario).setVisible(true);
+     
+    
+    }//GEN-LAST:event_menuAddPostulanteActionPerformed
+
+    private void MenuAgregarPostulanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAgregarPostulanteActionPerformed
+     
+        
+      
+    }//GEN-LAST:event_MenuAgregarPostulanteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -102,16 +202,31 @@ public class PantallaMenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaMenuPrincipal().setVisible(true);
+          //      new PantallaMenuPrincipal().setVisible(true);
             }
+            
+            public void mostrarNombreUser(){
+           }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu MenuAgregarPostulante;
+    private javax.swing.JMenu MenuEmpresas;
+    private javax.swing.JMenu MenuPostulante;
+    private javax.swing.JPanel PanelPantallaPrincipal;
+    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JLabel laberNombreUsuario;
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
+    private javax.swing.JMenuItem menuAddPostulante;
     private java.awt.MenuBar menuBar1;
     // End of variables declaration//GEN-END:variables
 }

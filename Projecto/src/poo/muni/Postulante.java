@@ -5,11 +5,22 @@
  */
 package poo.muni;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author Capacitacion5
  */
-public class Postulante extends Persona {
+@Entity
+@Table(name = "Postulante")
+public class Postulante extends Persona  {
+    @Id @GeneratedValue
+    @Column(name = "id_Postulante")
     private NivelEducativo nivelEducativo;
     private Perfil perfil;
     private String movilidad;
