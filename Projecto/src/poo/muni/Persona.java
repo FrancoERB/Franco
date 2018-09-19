@@ -24,22 +24,23 @@ import org.hibernate.internal.SessionFactoryImpl;
 @Table( name = "AbstractPersonas")
 public abstract class Persona {
 
+    @Id
+    private Long id;
+
     public static SessionFactory getSessionFactory() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    @Id
-    @GeneratedValue
-    @Column(name = "nombre")
+   
     private String nombre;
-    @Column(name = "domicilio")
+    
     private String domicilio;
-    @Column(name = "email")
+   
     private String email;
-    @Column(name = "cuit_cuil")
+   
     private int cuit_cuil;
-    @Column(name = "telPrincipal")
+    
     private int telPrincipal;
-     @Column(name = "telAlternativo")
+    
     private int telAlternativo;
    
 
@@ -138,8 +139,13 @@ public abstract class Persona {
     public void setTelefonoAlternativo(int telefonoAlternativo) {
         this.telAlternativo = telefonoAlternativo;
     }
-  
-    
-    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
 }

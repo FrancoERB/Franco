@@ -24,6 +24,7 @@ public class Programa {
     /**
      * @return the nombre
      */
+    
     public String getNombre() {
         return nombre;
     }

@@ -47,5 +47,8 @@ Contributor(s):
     <property name="hibernate.connection.password">root</property>
     <property name="hibernate.show_sql">true</property>
     <mapping class="poo.muni.Usuario"/>
+    <mapping class="poo.muni.Postulante"/>
+    <mapping class="poo.muni.Persona"/>
+    <mapping class="poo.muni.NivelEducativo"/>
   </session-factory>
 </hibernate-configuration>

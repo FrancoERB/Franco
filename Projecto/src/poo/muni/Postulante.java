@@ -5,11 +5,15 @@
  */
 package poo.muni;
 
-import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -17,24 +21,36 @@ import javax.persistence.Table;
  * @author Capacitacion5
  */
 @Entity
-@Table(name = "Postulante")
+@Table(name = "postulante")
+@SuppressWarnings("ConsistentAccessType")
 public class Postulante extends Persona  {
-    @Id @GeneratedValue
-    @Column(name = "id_Postulante")
+
+    @Id 
+    @GeneratedValue
+    @Column(name = "id_postulante")
+    private Long id;
+    private Usuario usuario;
+    private Persona persona;
     private NivelEducativo nivelEducativo;
     private Perfil perfil;
+    @Column(name = "movilidad")
     private String movilidad;
+    @Column(name = "dispHoraria")
     private String disponibilidadHoraria;
+    @Column(name = "docAdicional")
     private String documentacionAdicional;
     private Programa programa;
-    private int DNI;
+    @Column(name = "dni")
+    private String DNI;
+    @Column(name = "Sexo")
     private String sexo;
-    private int Edad;
-
+    @Column(name = "edad")
+    private String Edad;
+   
     public Postulante() {
     }
 
-    public Postulante(NivelEducativo nivelEducativo, Perfil perfil, String movilidad, String disponibilidadHoraria, String documentacionAdicional, Programa programa, int DNI, String sexo, int Edad, String nombre, String domicilio, String email, int cuit_cuil, int telefonoPrincipal, int telefonoAlternativo) {
+    public Postulante(NivelEducativo nivelEducativo, Perfil perfil, String movilidad, String disponibilidadHoraria, String documentacionAdicional, Programa programa, String DNI, String sexo, String Edad, String nombre, String domicilio, String email, int cuit_cuil, int telefonoPrincipal, int telefonoAlternativo) {
         super(nombre, domicilio, email, cuit_cuil, telefonoPrincipal, telefonoAlternativo);
         this.nivelEducativo = nivelEducativo;
         this.perfil = perfil;
@@ -50,6 +66,8 @@ public class Postulante extends Persona  {
     /**
      * @return the nivelEducativo
      */
+    @OneToMany(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     public NivelEducativo getNivelEducativo() {
         return nivelEducativo;
     }
@@ -134,14 +152,14 @@ public class Postulante extends Persona  {
     /**
      * @return the DNI
      */
-    public int getDNI() {
+    public String getDNI() {
         return DNI;
     }
 
     /**
      * @param DNI the DNI to set
      */
-    public void setDNI(int DNI) {
+    public void setDNI(String DNI) {
         this.DNI = DNI;
     }
 
@@ -162,15 +180,62 @@ public class Postulante extends Persona  {
     /**
      * @return the Edad
      */
-    public int getEdad() {
+    public String getEdad() {
         return Edad;
     }
 
     /**
      * @param Edad the Edad to set
      */
-    public void setEdad(int Edad) {
+    public void setEdad(String Edad) {
         this.Edad = Edad;
+    }
+
+    /**
+     * @return the persona
+     */
+  
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    public Persona getPersona() {
+        return persona;
+    }
+
+    /**
+     * @param persona the persona to set
+     */
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    /**
+     * @return the usuario
+     */
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+     /**
+     * @return the id
+     */
+    @Id
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
     }
     
     

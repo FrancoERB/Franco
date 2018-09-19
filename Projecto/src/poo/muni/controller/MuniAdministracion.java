@@ -10,8 +10,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+import poo.muni.NivelEducativo;
 import poo.muni.Usuario;
 import poo.muni.Persona;
+import poo.muni.Postulante;
 import poo.muni.ui.AltaUsuario;
 import poo.muni.controller.gestorDeEmpleo;
 import poo.muni.ui.LoginPanel;
@@ -35,7 +37,10 @@ public class MuniAdministracion {
          factory = new AnnotationConfiguration().configure().
                    //addPackage("com.xyz") //add package if used.
                    addAnnotatedClass(Usuario.class).
-                   buildSessionFactory();
+                  addAnnotatedClass(Postulante.class).
+                  addAnnotatedClass(Persona.class).
+                  addAnnotatedClass(NivelEducativo.class)
+                  .buildSessionFactory();
                    getConnection();
       } 
     catch (Throwable ex) { 

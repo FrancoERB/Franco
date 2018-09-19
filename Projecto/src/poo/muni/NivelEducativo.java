@@ -5,11 +5,23 @@
  */
 package poo.muni;
 
+import javax.annotation.Generated;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author Capacitacion5
  */
+@Entity
+@Table(name = "NivelEducacion")
 public class NivelEducativo {
+    @Id
+    @GeneratedValue
+    @Column(name = "id_nivel_educacion")
     private String nombre;
     private String descripcion;
 
